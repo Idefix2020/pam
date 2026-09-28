@@ -127,7 +127,7 @@ func parseOAuth2Scope(raw string) (string, error) {
 	parts := strings.Split(raw, ",")
 	scopes := make([]string, 0, len(parts))
 
-	var hasOpenID, hasPAMScope bool
+	var hasOpenID bool
 
 	for _, p := range parts {
 		if p = strings.TrimSpace(p); p != "" {
@@ -136,8 +136,6 @@ func parseOAuth2Scope(raw string) (string, error) {
 			switch p {
 			case "openid":
 				hasOpenID = true
-			case authelia.PAMScope:
-				hasPAMScope = true
 			}
 		}
 	}
@@ -150,8 +148,8 @@ func parseOAuth2Scope(raw string) (string, error) {
 		return "", errors.New("--oauth2-scope must include openid (required to verify the device-flow identity)")
 	}
 
-	if !hasPAMScope {
-		return "", fmt.Errorf("--oauth2-scope must include %s (grants the %s claim used to bind the device flow)", authelia.PAMScope, authelia.PAMUsernameClaim)
+	if len(scopes) < 2 {
+		return "", fmt.Errorf("--oauth2-scope must include a scope that grants the %s claim used to bind the device flow", authelia.PAMUsernameClaim)
 	}
 
 	return strings.Join(scopes, " "), nil

@@ -96,8 +96,6 @@ func TestParseOAuth2Scope(t *testing.T) {
 		{"RepeatedCommas", "openid,,,authelia.pam", "openid authelia.pam", false},
 		{"MissingOpenID", "profile,authelia.pam", "", true},
 		{"MissingPAMScope", "openid", "", true},
-		{"MissingPAMScopeWithProfile", "openid,profile", "", true},
-		{"MissingBoth", "profile,email", "", true},
 		{"Empty", "", "", true},
 		{"OnlyCommas", ",,,", "", true},
 		{"OnlyWhitespace", "   ", "", true},

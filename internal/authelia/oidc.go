@@ -14,11 +14,6 @@ import (
 // "Device authorization identity binding".
 const PAMUsernameClaim = "authelia.pam.username"
 
-// PAMScope is the OAuth2 scope that must grant PAMUsernameClaim. Operators
-// define it under Authelia identity_providers.oidc.scopes and bind it to the
-// pam_authelia client.
-const PAMScope = "authelia.pam"
-
 // VerifyDeviceIdentity binds a device-flow token to a Linux username, failing
 // closed at every step. It verifies the ID token against the issuer's JWKs,
 // asserts userinfo.sub matches id_token.sub (token substitution defense), and
